@@ -72,7 +72,11 @@ class NotionClient:
                 title_prop = page.get("properties", {}).get("Descripción", {})
                 title_parts = title_prop.get("title", [])
                 if title_parts:
-                    titles.add(title_parts[0]["text"]["content"])
+                    link = title_parts[0].get("text", {}).get("link")
+                    if link:
+                        titles.add(link["url"])
+                    else:
+                        titles.add(title_parts[0]["text"]["content"])
 
             if data.get("has_more"):
                 start_cursor = data["next_cursor"]

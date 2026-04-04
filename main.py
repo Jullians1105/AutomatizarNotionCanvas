@@ -7,10 +7,13 @@ from config import (
     NOTION_API_TOKEN,
     NOTION_DATABASE_ID,
     COURSE_TO_MATERIA,
+    TELEGRAM_BOT_TOKEN,
+    TELEGRAM_CHAT_ID,
 )
 from canvas_client import CanvasClient
 from notion_client import NotionClient
 from sync import run_sync
+from telegram_notifier import send_telegram_message, build_notification
 
 LOG_FILE = "canvas_notion_sync.log"
 
@@ -36,6 +39,10 @@ def main():
     notion = NotionClient(NOTION_API_TOKEN, NOTION_DATABASE_ID)
 
     report = run_sync(canvas, notion, COURSE_TO_MATERIA)
+
+    message = build_notification(report)
+    if message:
+        send_telegram_message(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, message)
 
     print("\n--- Reporte de sincronización ---")
     print(f"  Tareas creadas:  {report.created}")
