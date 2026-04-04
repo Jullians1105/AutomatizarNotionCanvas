@@ -31,7 +31,7 @@ def _format_due(due_at: str | None) -> str:
 
 def build_notification(report) -> str:
     if report.created == 0:
-        return "*Canvas → Notion Sync*\nℹ️ No hay tareas nuevas esta ejecución."
+        return "*Canvas → Notion Sync*\nℹ️ No hay tareas nuevas."
     lines = ["*Canvas → Notion Sync*", f"✅ {report.created} tarea(s) nueva(s):\n"]
     for task in report.created_tasks:
         lines.append(f"📚 *{task['materia']}*")
