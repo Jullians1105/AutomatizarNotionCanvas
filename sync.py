@@ -66,15 +66,16 @@ def map_course_to_materia(course_name: str, mapping: dict) -> str | None:
     return None
 
 
-def build_notion_properties(assignment: dict, materia: str) -> dict:
+def build_notion_properties(assignment: dict, materia: str, submitted: bool = False) -> dict:
     url = assignment.get("html_url", "").strip()
     name = assignment.get("name", "").strip() or url
     due_at = convert_utc_to_colombia(assignment.get("due_at"))
+    estado = "Listo" if submitted else "Sin empezar"
 
     properties = {
         "Descripción": {"title": [{"text": {"content": name, "link": {"url": url}}}]},
         "Materia": {"select": {"name": materia}},
-        "Estado de tarea": {"status": {"name": "Sin empezar"}},
+        "Estado de tarea": {"status": {"name": estado}},
     }
 
     if due_at:
@@ -122,7 +123,9 @@ def run_sync(canvas: CanvasClient, notion: NotionClient, course_mapping: dict) -
                 continue
 
             try:
-                properties = build_notion_properties(assignment, materia)
+                submission_state = canvas.get_submission_state(course_id, assignment.get("id"))
+                submitted = submission_state == "submitted"
+                properties = build_notion_properties(assignment, materia, submitted)
                 notion.create_page(properties)
                 existing_urls.add(url)
                 report.created += 1

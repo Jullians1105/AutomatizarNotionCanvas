@@ -82,3 +82,8 @@ class CanvasClient:
             course_id, len(all_assignments), len(published),
         )
         return published
+
+    def get_submission_state(self, course_id: int, assignment_id: int) -> str:
+        url = f"{self.base_url}/courses/{course_id}/assignments/{assignment_id}/submissions/self"
+        response = self._request_with_retry(url)
+        return response.json().get("workflow_state", "unsubmitted")
