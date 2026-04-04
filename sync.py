@@ -36,6 +36,7 @@ class SyncReport:
     skipped: int = 0
     errors: int = 0
     skipped_courses: list[str] = field(default_factory=list)
+    created_tasks: list[dict] = field(default_factory=list)
 
 
 def extract_context(html_description: str) -> str:
@@ -125,6 +126,11 @@ def run_sync(canvas: CanvasClient, notion: NotionClient, course_mapping: dict) -
                 notion.create_page(properties)
                 existing_urls.add(url)
                 report.created += 1
+                report.created_tasks.append({
+                    "name": name,
+                    "materia": materia,
+                    "due_at": assignment.get("due_at"),
+                })
                 logger.info("Creada: '%s' (%s)", name, url)
             except Exception as e:
                 logger.error("Error creando '%s': %s", url, e)
