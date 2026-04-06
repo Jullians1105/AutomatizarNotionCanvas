@@ -15,7 +15,10 @@ def send_telegram_message(token: str, chat_id: str, message: str) -> None:
         "parse_mode": "Markdown",
     }
     try:
+        logger.info("Telegram — chat_id=%r token_prefix=%s", chat_id, token[:10])
         response = requests.post(url, json=payload, timeout=10)
+        if not response.ok:
+            logger.error("Telegram respuesta: %s — %s", response.status_code, response.text)
         response.raise_for_status()
         logger.info("Notificación Telegram enviada")
     except Exception as e:
