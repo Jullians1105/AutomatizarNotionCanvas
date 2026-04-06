@@ -66,6 +66,9 @@ def map_course_to_materia(course_name: str, mapping: dict) -> str | None:
     return None
 
 
+NOTION_USER_ID = "80025d65-e4ce-4855-96a4-f8e2337e0728"
+
+
 def build_notion_properties(assignment: dict, materia: str, submitted: bool = False) -> dict:
     url = assignment.get("html_url", "").strip()
     name = assignment.get("name", "").strip() or url
@@ -76,6 +79,7 @@ def build_notion_properties(assignment: dict, materia: str, submitted: bool = Fa
         "Descripción": {"title": [{"text": {"content": name, "link": {"url": url}}}]},
         "Materia": {"select": {"name": materia}},
         "Estado de tarea": {"status": {"name": estado}},
+        "Personas": {"people": [{"id": NOTION_USER_ID}]},
     }
 
     if due_at:
