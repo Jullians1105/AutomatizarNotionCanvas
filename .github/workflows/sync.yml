@@ -2,8 +2,7 @@ name: Canvas → Notion Sync
 
 on:
   schedule:
-    - cron: "0 5,7,9,11,13,15,17,19,21,23,1,3 * * 1,2,3,4,5"  # cada 2h lun-vie (UTC-5)
-    - cron: "25 2 6 4 *"  # prueba: domingo 5 abr 9:25pm Colombia = lunes 6 abr 2:25am UTC
+    - cron: "0 10,12,14,16,18,20,22,0,2 * * 1,2,3,4,5"  # cada 2h lun-vie desde 5am hasta 9pm Colombia (UTC-5)
   workflow_dispatch:        # permite ejecución manual desde GitHub
 
 jobs:
