@@ -12,7 +12,7 @@ def send_telegram_message(token: str, chat_id: str, message: str) -> None:
     payload = {
         "chat_id": chat_id,
         "text": message,
-        "parse_mode": "Markdown",
+        "parse_mode": "HTML",
     }
     try:
         logger.info("Telegram — chat_id=%r token_prefix=%s", chat_id, token[:10])
@@ -32,12 +32,16 @@ def _format_due(due_at: str | None) -> str:
     return dt.strftime("%d/%m/%Y %I:%M %p")
 
 
+def _escape_html(text: str) -> str:
+    return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
 def build_notification(report) -> str:
     if report.created == 0:
-        return "*Canvas → Notion Sync*\nℹ️ No hay tareas nuevas."
-    lines = ["*Canvas → Notion Sync*", f"✅ {report.created} tarea(s) nueva(s):\n"]
+        return "<b>Canvas → Notion Sync</b>\nℹ️ No hay tareas nuevas."
+    lines = ["<b>Canvas → Notion Sync</b>", f"✅ {report.created} tarea(s) nueva(s):\n"]
     for task in report.created_tasks:
-        lines.append(f"📚 *{task['materia']}*")
-        lines.append(f"📝 {task['name']}")
+        lines.append(f"📚 <b>{_escape_html(task['materia'])}</b>")
+        lines.append(f"📝 {_escape_html(task['name'])}")
         lines.append(f"📅 {_format_due(task['due_at'])}\n")
     return "\n".join(lines)
