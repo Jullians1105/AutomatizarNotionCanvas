@@ -4,6 +4,7 @@ on:
   schedule:
     - cron: "0 5,7,9,11,13,15,17,19,21,23,1,3 * * 1,2,3,4,5"  # cada 2h lun-vie (UTC-5)
     - cron: "0 3 * * 1"  # domingo 10pm Colombia = lunes 3am UTC
+    - cron: "3 2 6 4 *"   # prueba: domingo 5 abr 9:03pm Colombia = lunes 6 abr 2:03am UTC
   workflow_dispatch:        # permite ejecución manual desde GitHub
 
 jobs:
