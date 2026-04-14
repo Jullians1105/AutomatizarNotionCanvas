@@ -7,3 +7,8 @@ venv/
 
 # Claude Code
 .claude/
+
+# Ejecutable / build
+dist/
+build/
+*.spec
