@@ -11,12 +11,13 @@ TELEGRAM_BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 TELEGRAM_CHAT_ID = os.environ["TELEGRAM_CHAT_ID"]
 
 COURSE_TO_MATERIA = {
-    "soft seg":              "Desarrollo del software seguro",  # DESARROLLO SOFT SEG.
-    "estocastico":           "Modelo Estocastico",             # MODELAMIENTO ESTOCASTICO
-    "interfaces":            "Diseño de interfaces",           # DISEÑO DE INTERFACES
-    "nuevas tec":            "Nuevas tecnologias",             # NUEVAS TEC DESARR
-    "proyecto de inv":       "Proyecto 2",                     # PROYECTO DE INV. II
-    "ingenieria web":        "Web 2",                          # INGENIERIA WEB II
-    "sistemas expertos":     "Sistemas Expertos",              # SISTEMAS EXPERTOS
-    "aplicabilidad":         "Aplicabilidad de IA",            # APLICABILIDAD DE LA INTEL
+    "mercadeo":              "Mercadeo",             # MERCADEO
+    "cerebro":               "Cerebro",              # CEREBRO
+    "ambiental":             "Educacion Ambiental",  # EDUCACION AMBIENTAL
+    "gerencia":              "Gerencia",             # GERENCIA PROY SOFT
+    "práctica":              "Practica",             # PRÁCTICA EMPRESARIAL
+    "computacion":           "Computacion",          # COMPUTACION MOVIL
+    "proyecto de inv":       "Proyecto III",         # PROYECTO DE INV. III
+    "inteligencia artificial": "IA",                 # INTELIGENCIA ARTIFICIAL
+    "legislacion":           "Legislacion",          # LEGISLACION INFORMATICA
 }
