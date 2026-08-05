@@ -66,19 +66,35 @@ def map_course_to_materia(course_name: str, mapping: dict) -> str | None:
     return None
 
 
+def map_name_to_tipo(assignment_name: str, keywords: dict, default: str) -> str:
+    lower = assignment_name.lower()
+    for key, tipo in keywords.items():
+        if key in lower:
+            return tipo
+    return default
+
+
 NOTION_USER_ID = "80025d65-e4ce-4855-96a4-f8e2337e0728"
 
 
-def build_notion_properties(assignment: dict, materia: str, submitted: bool = False) -> dict:
+def build_notion_properties(
+    assignment: dict,
+    materia: str,
+    submitted: bool = False,
+    tipo_keywords: dict | None = None,
+    tipo_default: str = "Tarea",
+) -> dict:
     url = assignment.get("html_url", "").strip()
     name = assignment.get("name", "").strip() or url
     due_at = convert_utc_to_colombia(assignment.get("due_at"))
     estado = "Listo" if submitted else "Sin empezar"
+    tipo = map_name_to_tipo(name, tipo_keywords or {}, tipo_default)
 
     properties = {
         "Descripción": {"title": [{"text": {"content": name, "link": {"url": url}}}]},
         "Materia": {"select": {"name": materia}},
         "Estado de Tarea": {"status": {"name": estado}},
+        "Tipo": {"select": {"name": tipo}},
         "Personas": {"people": [{"id": NOTION_USER_ID}]},
     }
 
@@ -88,7 +104,13 @@ def build_notion_properties(assignment: dict, materia: str, submitted: bool = Fa
     return properties
 
 
-def run_sync(canvas: CanvasClient, notion: NotionClient, course_mapping: dict) -> SyncReport:
+def run_sync(
+    canvas: CanvasClient,
+    notion: NotionClient,
+    course_mapping: dict,
+    tipo_keywords: dict | None = None,
+    tipo_default: str = "Tarea",
+) -> SyncReport:
     report = SyncReport()
 
     existing_urls = notion.get_existing_titles()
@@ -129,7 +151,9 @@ def run_sync(canvas: CanvasClient, notion: NotionClient, course_mapping: dict) -
             try:
                 submission_state = canvas.get_submission_state(course_id, assignment.get("id"))
                 submitted = submission_state == "submitted"
-                properties = build_notion_properties(assignment, materia, submitted)
+                properties = build_notion_properties(
+                    assignment, materia, submitted, tipo_keywords, tipo_default
+                )
                 notion.create_page(properties)
                 existing_urls.add(url)
                 report.created += 1

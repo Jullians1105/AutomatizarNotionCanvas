@@ -7,6 +7,8 @@ from config import (
     NOTION_API_TOKEN,
     NOTION_DATABASE_ID,
     COURSE_TO_MATERIA,
+    ASSIGNMENT_TIPO_KEYWORDS,
+    ASSIGNMENT_TIPO_DEFAULT,
     TELEGRAM_BOT_TOKEN,
     TELEGRAM_CHAT_ID,
 )
@@ -38,7 +40,9 @@ def main():
     canvas = CanvasClient(CANVAS_BASE_URL, CANVAS_API_TOKEN)
     notion = NotionClient(NOTION_API_TOKEN, NOTION_DATABASE_ID)
 
-    report = run_sync(canvas, notion, COURSE_TO_MATERIA)
+    report = run_sync(
+        canvas, notion, COURSE_TO_MATERIA, ASSIGNMENT_TIPO_KEYWORDS, ASSIGNMENT_TIPO_DEFAULT
+    )
 
     message = build_notification(report)
     send_telegram_message(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, message)

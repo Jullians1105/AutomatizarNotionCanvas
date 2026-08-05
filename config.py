@@ -21,3 +21,20 @@ COURSE_TO_MATERIA = {
     "inteligencia artificial": "IA",                 # INTELIGENCIA ARTIFICIAL
     "legislacion":           "Legislación",          # LEGISLACION INFORMATICA
 }
+
+# Orden de prioridad: se evalúa de arriba hacia abajo, la primera palabra
+# clave que aparezca en el nombre de la tarea define el Tipo. Si ninguna
+# coincide, se usa "Tarea" por defecto.
+ASSIGNMENT_TIPO_KEYWORDS = {
+    "sustentación":  "Sustentación",
+    "sustentacion":  "Sustentación",
+    "entrega":       "Entrega",
+    "examen":        "Examen",
+    "parcial":       "Parcial",
+    "quiz":          "Quiz",
+    "guía":          "Guía",
+    "guia":          "Guía",
+    "laboratorio":   "Guía",
+    "tarea":         "Tarea",
+}
+ASSIGNMENT_TIPO_DEFAULT = "Tarea"
