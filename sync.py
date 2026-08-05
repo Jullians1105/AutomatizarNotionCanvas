@@ -78,7 +78,7 @@ def build_notion_properties(assignment: dict, materia: str, submitted: bool = Fa
     properties = {
         "Descripción": {"title": [{"text": {"content": name, "link": {"url": url}}}]},
         "Materia": {"select": {"name": materia}},
-        "Estado de tarea": {"status": {"name": estado}},
+        "Estado de Tarea": {"status": {"name": estado}},
         "Personas": {"people": [{"id": NOTION_USER_ID}]},
     }
 

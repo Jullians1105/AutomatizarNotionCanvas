@@ -13,11 +13,11 @@ TELEGRAM_CHAT_ID = os.environ["TELEGRAM_CHAT_ID"]
 COURSE_TO_MATERIA = {
     "mercadeo":              "Mercadeo",             # MERCADEO
     "cerebro":               "Cerebro",              # CEREBRO
-    "ambiental":             "Educacion Ambiental",  # EDUCACION AMBIENTAL
+    "ambiental":             "Edu. Ambiental",       # EDUCACION AMBIENTAL
     "gerencia":              "Gerencia",             # GERENCIA PROY SOFT
     "práctica":              "Practica",             # PRÁCTICA EMPRESARIAL
-    "computacion":           "Computacion",          # COMPUTACION MOVIL
+    "computacion":           "Computación",          # COMPUTACION MOVIL
     "proyecto de inv":       "Proyecto III",         # PROYECTO DE INV. III
     "inteligencia artificial": "IA",                 # INTELIGENCIA ARTIFICIAL
-    "legislacion":           "Legislacion",          # LEGISLACION INFORMATICA
+    "legislacion":           "Legislación",          # LEGISLACION INFORMATICA
 }
